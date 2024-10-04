@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Automated script to connect to  https://bandit.labs.overthewire.org/
+
+
+if ! [ -x "$(command -v sshpass)" ]; then
+  echo 'Error: sshpass NOT installed.'
+  echo '        Installing...' >&2
+  sudo apt install sshpass
+fi
+
+LEVEL=$(($@ - 1))
+#LEVEL=$1
+
+echo $LEVEL
+
+sshpass -p `cat ./Solve/Passwords/bandit$LEVEL` ssh bandit$LEVEL@bandit.labs.overthewire.org -p 2220 
+exit
+
+
